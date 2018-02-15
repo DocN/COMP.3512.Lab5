@@ -28,7 +28,7 @@ public:
 	RPNCalculator() {
 	}
 	Operation* operation_type(int type) {
-		Operation * operation;
+		Operation * operation = NULL;
 		switch (type)
 		{
 		case '+':
@@ -39,19 +39,19 @@ public:
 			operation = new DivisionOperation();
 		case '*':
 			operation = new MultiplicationOperation();
-		default:
 		}
 
 		return operation;
 	}
+
 	int process_form(string formula) {
 		string currentTotal = "";
-		
-		for (int i = 0; i < formula.length; i++) {
+
+		for (int i = 0; i < formula.length(); i++) {
 			char currentChar = formula[i];
 			if (currentChar == ' ') {
 				bool isNumber = true;
-				if (currentTotal.length == 1) {
+				if (currentTotal.length() == 1) {
 					char totalChar = currentTotal[0];
 					if (totalChar == '/' || totalChar == '*' || totalChar == '-' | totalChar == '+') {
 						isNumber = false;
@@ -67,7 +67,6 @@ public:
 				}
 			}
 		}
+		return 0;
 	}
-
-
 };
