@@ -114,6 +114,15 @@
   <ItemGroup>
     <ClCompile Include="RPMTester.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbstractOperation.hpp" />
+    <ClInclude Include="AdditionOperation.hpp" />
+    <ClInclude Include="DivisionOperation.hpp" />
+    <ClInclude Include="MultiplicationOperation.hpp" />
+    <ClInclude Include="Operation.hpp" />
+    <ClInclude Include="RPNCalculator.hpp" />
+    <ClInclude Include="SubtractionOperation.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
