@@ -15,6 +15,7 @@ int main() {
 	cout << "2 3 - 4 *" << endl;
 	cout << test->process_form("2 3 - 4 *") << endl;
 	
+	//input part 
 	cout << "Enter your formula: " << endl;
 	string formula;
 	getline(std::cin, formula);
