@@ -21,8 +21,7 @@ private:
 		RPNStack.pop();
 		int num2 = RPNStack.top();
 		RPNStack.pop();
-		cout << num1 << " " << num2 << endl;
-		int result = operation->perform(num1, num2);
+		int result = operation->perform(num2, num1);
 		RPNStack.push(result);
 	}
 public:
@@ -57,29 +56,45 @@ public:
 			}
 			//in the event we have a space
 			else if (formula[i] == ' ') {
+				if (currentDigit.length() == 0) {
+					continue;
+				}
 				stringstream integerStream(currentDigit);
 				int val = 0;
 				integerStream >> val;
-				cout << val << endl;
 				RPNStack.push(val);
 				currentDigit = "";
 			}
 			else {
-				Operation * currentOP;
-				if (formula[i] == '+') {
-					currentOP = operation_type(formula[i]);
+				//check if the operator is a negative part of a number
+				bool digitOperator = false;
+				if (currentDigit.length() == 0 && formula[i] == '-') {
+					if ((i+1) < formula.length()) {
+						if (isdigit(formula[i + 1])) {
+							digitOperator = true;
+							currentDigit = currentDigit + formula[i];
+						}
+					}
 				}
-				else if (formula[i] == '+') {
-					currentOP = operation_type(formula[i]);
+				if (digitOperator == false) {
+					Operation * currentOP = NULL;
+					if (formula[i] == '+') {
+						currentOP = operation_type(formula[i]);
+					}
+					else if (formula[i] == '-') {
+						currentOP = operation_type(formula[i]);
+					}
+					else if (formula[i] == '*') {
+						currentOP = operation_type(formula[i]);
+					}
+					else if (formula[i] == '/') {
+						currentOP = operation_type(formula[i]);
+					}
+					if (currentOP != NULL) {
+						perform(currentOP);
+					}
+					currentDigit = "";
 				}
-				else if (formula[i] == '+') {
-					currentOP = operation_type(formula[i]);
-				}
-				else if (formula[i] == '+') {
-					currentOP = operation_type(formula[i]);
-				}
-				perform(currentOP);
-				currentDigit = "";
 			}
 		}
 		return RPNStack.top();
