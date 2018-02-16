@@ -46,11 +46,11 @@ public:
 
 	int process_form(string formula) {
 		string currentTotal = "";
-
+		bool isNumber = true;
 		for (int i = 0; i < formula.length(); i++) {
 			char currentChar = formula[i];
 			if (currentChar == ' ') {
-				bool isNumber = true;
+				isNumber = true;
 				if (currentTotal.length() == 1) {
 					char totalChar = currentTotal[0];
 					if (totalChar == '/' || totalChar == '*' || totalChar == '-' | totalChar == '+') {
@@ -63,10 +63,14 @@ public:
 					istringstream buffer(currentTotal);
 					int value;
 					buffer >> value;
+					//cout << value << "here" << endl;
 					RPNStack.push(value);
+					continue;
 				}
+				currentTotal = "";
 			}
+			currentTotal = currentTotal + formula[i];
 		}
-		return 0;
+		return RPNStack.top();
 	}
 };

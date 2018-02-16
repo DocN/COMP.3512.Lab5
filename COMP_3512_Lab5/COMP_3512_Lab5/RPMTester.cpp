@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 	RPNCalculator * test = new RPNCalculator();
-	cout << test->process_form("2 - 3") << endl;
+	cout << test->process_form("122 123 -") << endl;
 	system("pause");
 	return 0;
 }
