@@ -1,5 +1,6 @@
 #pragma once
 #include "Operation.hpp"
+using namespace std;
 class AbstractOperation : public Operation
 {
 private:
@@ -12,5 +13,4 @@ public:
 	char get_code() {
 		return operation_type;
 	}
-	
 };
