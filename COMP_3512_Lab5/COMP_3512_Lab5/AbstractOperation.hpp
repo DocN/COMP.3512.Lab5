@@ -1,6 +1,6 @@
 #pragma once
 #include "Operation.hpp"
-using namespace std;
+
 class AbstractOperation : public Operation
 {
 private:

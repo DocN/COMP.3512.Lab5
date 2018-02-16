@@ -76,62 +76,20 @@ public:
 			int - the result of the processed formula
 	*/
 	int process_form(string formula) {
-		string currentDigit = "";
-		//loop through all the chars of the formula string
-		for (int i = 0; i < formula.length(); i++) {
-			//check if the current char is a digit
-			if(isdigit(formula[i])) {
-				//if it's a digit then add it to the current digit
-				currentDigit = currentDigit + formula[i];
-			}
-			//in the event we have a space
-			else if (formula[i] == ' ') {
-				//check if there's anything there
-				if (currentDigit.length() == 0) {
-					continue;
-				}
+		istringstream iss(formula);
+		string token;
+		while (iss >> token) {
+			istringstream iss2(token);
 
-				//convert the current digit from string to int via streams
-				stringstream integerStream(currentDigit);
-				int val = 0;
-				integerStream >> val;
-				RPNStack.push(val);
-				currentDigit = "";
+			int n;
+			if (iss2 >> n) {
+				RPNStack.push(n);
 			}
 			else {
-				//check if the operator is a negative part of a number
-				bool digitOperator = false;
-				if (currentDigit.length() == 0 && formula[i] == '-') {
-					if ((i+1) < formula.length()) {
-						if (isdigit(formula[i + 1])) {
-							digitOperator = true;
-							currentDigit = currentDigit + formula[i];
-						}
-					}
-				}
-				if (digitOperator == false) {
-					//find out what type of operation we're dealing with
-					Operation * currentOP = NULL;
-					if (formula[i] == AdditionOperation::OPERATION_CODE) {
-						currentOP = operation_type(formula[i]);
-					}
-					else if (formula[i] == SubtractionOperation::OPERATION_CODE) {
-						currentOP = operation_type(formula[i]);
-					}
-					else if (formula[i] == MultiplicationOperation::OPERATION_CODE) {
-						currentOP = operation_type(formula[i]);
-					}
-					else if (formula[i] == DivisionOperation::OPERATION_CODE) {
-						currentOP = operation_type(formula[i]);
-					}
-					if (currentOP != NULL) {
-						perform(currentOP);
-					}
-					currentDigit = "";
-				}
+				Operation * operation = operation_type(token[0]);
+				perform(operation);
 			}
 		}
-		//return the result that's on the top of our stack
 		return RPNStack.top();
 	}
 };
